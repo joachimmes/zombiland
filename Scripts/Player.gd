@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	# Inventaire
 	if event.is_action_pressed("inventory"):
-		var inv_ui = get_tree().get_first_node_in_group("inventory_ui")
+		var inv_ui = get_parent().get_node_or_null("InventoryUI")
 		if inv_ui:
 			inv_ui.toggle()
 
