@@ -30,6 +30,9 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
+	if not player:
+		player = get_tree().get_first_node_in_group("player")
+		return
 	_apply_gravity(delta)
 	attack_timer = max(0.0, attack_timer - delta)
 	_update_state()
