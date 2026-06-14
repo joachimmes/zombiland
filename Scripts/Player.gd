@@ -27,7 +27,7 @@ var stamina  := 100.0
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
-	var inv := load("res://Scripts/Inventory.gd").new()
+	var inv = load("res://Scripts/Inventory.gd").new()
 	inv.name = "Inventory"
 	add_child(inv)
 
