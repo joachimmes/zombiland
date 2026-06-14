@@ -40,6 +40,7 @@ func _update_swing(delta: float) -> void:
 		_swing_progress = 0.0
 
 func play_swing() -> void:
+	print("play_swing appelé")
 	if not _is_swinging:
 		_is_swinging    = true
 		_swing_progress = 0.0
