@@ -11,9 +11,10 @@ var thirst_bar:  ProgressBar
 var stamina_bar: ProgressBar
 
 # ── Labels info ───────────────────────────────────────────────
-var day_label:  Label
-var time_label: Label
-var night_label: Label   # Avertissement la nuit
+var day_label:     Label
+var time_label:    Label
+var night_label:   Label
+var interact_label: Label
 
 # ── Références vers les autres nœuds ──────────────────────────
 var player:    CharacterBody3D
@@ -104,6 +105,17 @@ func _build_ui() -> void:
 	night_label.visible = false
 	add_child(night_label)
 
+	# == Prompt d'interaction (centré en bas) ==
+	interact_label = Label.new()
+	interact_label.text = ""
+	interact_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	interact_label.position = Vector2(-120, -60)
+	interact_label.add_theme_font_size_override("font_size", 18)
+	interact_label.add_theme_color_override("font_color", Color.WHITE)
+	interact_label.visible = false
+	add_child(interact_label)
+	add_to_group("hud")
+
 # ── Créer une ligne "label + barre" ───────────────────────────
 func _create_bar_row(parent: Control, label_text: String, color: Color) -> ProgressBar:
 	var hbox := HBoxContainer.new()
@@ -156,3 +168,7 @@ func _on_day_started(_day: int) -> void:
 func _on_horde_incoming() -> void:
 	night_label.text = "🧟 HORDE NIGHT ! Bonne chance..."
 	night_label.modulate = Color.RED
+
+func show_interact_prompt(show: bool, text: String = "") -> void:
+	interact_label.visible = show
+	interact_label.text    = text

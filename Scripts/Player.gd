@@ -25,9 +25,11 @@ var stamina  := 100.0
 @onready var head: Node3D = $Head
 
 func _ready() -> void:
-	# Capturer la souris dès le lancement
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	add_to_group("player")
+	var inv = load("res://Scripts/Inventory.gd").new()
+	inv.name = "Inventory"
+	add_child(inv)
 
 # ── Input souris (rotation caméra) ───────────────────────────
 func _unhandled_input(event: InputEvent) -> void:
@@ -44,6 +46,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	# Inventaire
+	if event.is_action_pressed("inventory"):
+		var inv_ui = get_parent().get_node_or_null("InventoryUI")
+		if inv_ui:
+			inv_ui.toggle()
 
 # ── Physique (chaque frame) ───────────────────────────────────
 func _physics_process(delta: float) -> void:

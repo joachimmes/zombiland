@@ -13,16 +13,18 @@ var player : Node3D
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
-	# Laisser le terrain se générer avant de spawner
+	print("ZombieSpawner prêt — zombie_scene: ", zombie_scene)
 	call_deferred("_spawn_initial_zombies")
 
 func _spawn_initial_zombies() -> void:
+	print("Spawn de ", max_zombies, " zombies...")
 	for i in max_zombies:
 		_spawn_zombie()
+	print("Spawn terminé")
 
 func _spawn_zombie() -> void:
 	if not zombie_scene:
-		push_warning("ZombieSpawner : zombie_scene non assignée !")
+		print("ERREUR : zombie_scene non assignée !")
 		return
 
 	var pos := _random_spawn_position()
