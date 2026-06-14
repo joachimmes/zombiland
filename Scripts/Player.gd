@@ -88,7 +88,7 @@ func _update_survival(delta: float) -> void:
 	thirst = max(0.0, thirst - 0.6 * delta)   # Vide en ~2.5 min
 
 	# Mourir de faim ou de soif → perd de la vie
-	if hunger == 0.0 or thirst == 0.0:
+	if hunger <= 0.0 or thirst <= 0.0:
 		take_damage(2.0 * delta)
 
 # ── Dégâts / mort ─────────────────────────────────────────────
