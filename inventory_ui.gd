@@ -78,7 +78,7 @@ func _make_cell(col: int, row: int) -> Control:
 	lbl.text             = ""
 	lbl.position         = Vector2(4, 4)
 	lbl.size             = Vector2(CELL_SIZE - 12, CELL_SIZE - 8)
-	lbl.autowrap_mode    = TextServer.AUTOWRAP_WORD_ARBITRARY
+	lbl.autowrap_mode    = TextServer.AUTOWRAP_WORD
 	lbl.add_theme_font_size_override("font_size", 11)
 	lbl.add_theme_color_override("font_color", Color.WHITE)
 	cell.add_child(lbl)
