@@ -108,7 +108,7 @@ func _build_ui() -> void:
 	# == Prompt d'interaction (centré en bas) ==
 	interact_label = Label.new()
 	interact_label.text = ""
-	interact_label.set_anchors_preset(Control.PRESET_BOTTOM_CENTER)
+	interact_label.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
 	interact_label.position = Vector2(-120, -60)
 	interact_label.add_theme_font_size_override("font_size", 18)
 	interact_label.add_theme_color_override("font_color", Color.WHITE)
