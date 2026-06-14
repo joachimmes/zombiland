@@ -48,12 +48,14 @@ func _sphere_attack(origin: Vector3) -> void:
 	var cam_forward := -camera.global_transform.basis.z
 
 	for zombie in zombies:
-		var to_zombie := (zombie.global_position - origin)
+		var z := zombie as Node3D
+		if not z:
+			continue
+		var to_zombie := (z.global_position - origin)
 		if to_zombie.length() > ATTACK_RANGE:
 			continue
-		# Vérifier que le zombie est devant le joueur (angle < 60°)
 		var angle := cam_forward.angle_to(to_zombie.normalized())
 		if angle < deg_to_rad(60.0):
-			zombie.take_damage(ATTACK_DAMAGE)
+			z.take_damage(ATTACK_DAMAGE)
 			print("Touché zombie (sphère) !")
 			break
