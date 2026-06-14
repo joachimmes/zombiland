@@ -26,7 +26,7 @@ func _attack() -> void:
 	is_attacking   = true
 
 	# Déclencher l'animation visuelle
-	var weapon_view := get_node_or_null("../WeaponView")
+	var weapon_view := get_parent().get_node_or_null("WeaponView")
 	if weapon_view:
 		weapon_view.play_swing()
 
