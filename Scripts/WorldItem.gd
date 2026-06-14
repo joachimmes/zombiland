@@ -20,7 +20,9 @@ func _process(_delta: float) -> void:
 		player_node = get_tree().get_first_node_in_group("player")
 		return
 
-	var dist := global_position.distance_to(player_node.global_position)
+	var flat_pos_item   := Vector2(global_position.x, global_position.z)
+	var flat_pos_player := Vector2(player_node.global_position.x, player_node.global_position.z)
+	var dist := flat_pos_item.distance_to(flat_pos_player)
 
 	if dist < PICKUP_RANGE and not player_nearby:
 		player_nearby = true
