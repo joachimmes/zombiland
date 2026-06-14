@@ -34,21 +34,7 @@ func _spawn_zombie() -> void:
 	zombie.global_position = pos
 
 func _random_spawn_position() -> Vector3:
-	# Essaie jusqu'à 10 fois de trouver une position valide
-	for _i in 10:
-		var angle := randf() * TAU
-		var dist  := randf_range(min_dist_player, spawn_radius)
-		var pos   := Vector3(cos(angle) * dist, 50.0, sin(angle) * dist)
-
-		# Raycast vers le bas pour atterrir sur le terrain
-		var space  := get_viewport().get_world_3d().direct_space_state
-		var query  := PhysicsRayQueryParameters3D.create(pos, pos + Vector3.DOWN * 100.0)
-		var result := space.intersect_ray(query)
-
-		if result:
-			# Vérifier distance au joueur
-			if player and result.position.distance_to(player.global_position) < min_dist_player:
-				continue
-			return result.position + Vector3.UP * 1.0
-
-	return Vector3.ZERO
+	var angle := randf() * TAU
+	var dist  := randf_range(min_dist_player, spawn_radius)
+	# Spawn en hauteur — la gravité pose le zombie sur le terrain
+	return Vector3(cos(angle) * dist, 40.0, sin(angle) * dist)
