@@ -26,11 +26,10 @@ func _ready() -> void:
 		if inventory:
 			inventory.inventory_changed.connect(_refresh)
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("inventory"):
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("inventory"):
 		print("Inventaire toggle")
 		visible = !visible
-
 		if visible:
 			_refresh()
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
