@@ -27,7 +27,7 @@ func _ready() -> void:
 			inventory.inventory_changed.connect(_refresh)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_just_pressed("inventory"):
+	if event is InputEventKey and event.is_action_just_pressed("inventory"):
 		visible = !visible
 		if visible:
 			_refresh()
