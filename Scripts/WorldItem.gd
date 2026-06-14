@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 		_show_hud_prompt(false)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if player_nearby and event.is_action_just_pressed("interact"):
+	if player_nearby and event is InputEventKey and event.is_action_just_pressed("interact"):
 		_pick_up()
 
 func _pick_up() -> void:
