@@ -87,5 +87,7 @@ func take_damage(amount: float) -> void:
 		_die()
 
 func _die() -> void:
-	GameManager.register_zombie_kill()
+	var gm := get_node_or_null("/root/GameManager")
+	if gm:
+		gm.register_zombie_kill()
 	queue_free()
