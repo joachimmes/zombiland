@@ -3,9 +3,6 @@
 ## Hiérarchie requise :
 ##   CharacterBody3D (ce script)
 ##   ├── CollisionShape3D (CapsuleShape3D h=1.8, r=0.4)
-##   ├── NavigationAgent3D
-##   └── DetectionArea (Area3D)
-##       └── CollisionShape3D (SphereShape3D r=DETECTION_RANGE)
 
 extends CharacterBody3D
 
@@ -27,8 +24,6 @@ var state        : State = State.IDLE
 var player       : CharacterBody3D
 var attack_timer : float = 0.0
 
-@onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
-
 func _ready() -> void:
 	health = max_health
 	add_to_group("zombie")
@@ -41,18 +36,16 @@ func _physics_process(delta: float) -> void:
 
 	match state:
 		State.CHASE:
-			_chase(delta)
+			_chase()
 		State.ATTACK:
 			_try_attack()
 
 	move_and_slide()
 
-# ── Gravité ───────────────────────────────────────────────────
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 
-# ── Machine d'états ───────────────────────────────────────────
 func _update_state() -> void:
 	if not player:
 		state = State.IDLE
@@ -69,20 +62,15 @@ func _update_state() -> void:
 		velocity.x = 0.0
 		velocity.z = 0.0
 
-# ── Poursuite via NavigationAgent3D ──────────────────────────
-func _chase(delta: float) -> void:
-	nav_agent.target_position = player.global_position
-	var next := nav_agent.get_next_path_position()
-	var dir  := (next - global_position).normalized()
+func _chase() -> void:
+	var dir := (player.global_position - global_position)
 	dir.y = 0.0
+	dir = dir.normalized()
 	velocity.x = dir.x * MOVE_SPEED
 	velocity.z = dir.z * MOVE_SPEED
-
-	# Regarder vers le joueur
 	if dir.length() > 0.01:
 		look_at(global_position + Vector3(dir.x, 0, dir.z), Vector3.UP)
 
-# ── Attaque ───────────────────────────────────────────────────
 func _try_attack() -> void:
 	velocity.x = 0.0
 	velocity.z = 0.0
@@ -90,14 +78,11 @@ func _try_attack() -> void:
 		player.take_damage(ATTACK_DAMAGE)
 		attack_timer = ATTACK_COOLDOWN
 
-# ── Recevoir des dégâts ───────────────────────────────────────
 func take_damage(amount: float) -> void:
 	health -= amount
 	if health <= 0.0:
 		_die()
 
 func _die() -> void:
-	var gm = get_tree().get_first_node_in_group("game_manager")
-	if gm:
-		gm.register_zombie_kill()
+	GameManager.register_zombie_kill()
 	queue_free()
