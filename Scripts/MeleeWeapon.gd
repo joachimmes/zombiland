@@ -35,7 +35,7 @@ func _attack() -> void:
 
 	if result and result.collider.is_in_group("zombie"):
 		result.collider.take_damage(ATTACK_DAMAGE)
-		print("Touché ! zombie à ", result.distance, " unités")
+		print("Touché !")
 	else:
 		# Pas de raycast direct — on cherche les zombies dans un rayon sphérique
 		_sphere_attack(origin)
