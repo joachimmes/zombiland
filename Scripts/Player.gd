@@ -47,6 +47,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+	# Inventaire
+	if event.is_action_pressed("inventory"):
+		var inv_ui = get_tree().get_first_node_in_group("inventory_ui")
+		if inv_ui:
+			inv_ui.toggle()
+
 # ── Physique (chaque frame) ───────────────────────────────────
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
