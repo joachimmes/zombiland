@@ -29,10 +29,10 @@ func _ready() -> void:
 func toggle() -> void:
 	visible = !visible
 	if visible:
-			_refresh()
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		_refresh()
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _build_ui() -> void:
 	var total_w := COLS * CELL_SIZE + (COLS + 1) * PADDING
