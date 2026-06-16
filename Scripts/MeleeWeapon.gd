@@ -25,6 +25,11 @@ func _attack() -> void:
 	cooldown_timer = ATTACK_COOLDOWN
 	is_attacking   = true
 
+	# Déclencher l'animation visuelle
+	var weapon_view := get_parent().get_node_or_null("Camera3D/WeaponView")
+	if weapon_view:
+		weapon_view.play_swing()
+
 	# Raycast depuis la caméra vers l'avant
 	var space  := get_viewport().get_world_3d().direct_space_state
 	var origin := camera.global_position
